@@ -188,11 +188,15 @@ nav.scrolled .nav-logo .logo-img { height: 56px; }
 .menu-toggle.active span:nth-child(2) { opacity: 0; }
 .menu-toggle.active span:nth-child(3) { top: 11px; transform: rotate(-45deg); }
 
+/* Desktop: show full button text */
+.nav-cta .cta-short { display: none; }
+.nav-cta .cta-full { display: inline; }
+
 @media (max-width: 900px) {
   nav .nav-container { padding: 0 1rem; }
   .menu-toggle { display: none; }
-  .nav-logo .logo-img { height: 52px; }
-  nav.scrolled .nav-logo .logo-img { height: 44px; }
+  .nav-logo .logo-img { height: 58px; }
+  nav.scrolled .nav-logo .logo-img { height: 48px; }
   .nav-links {
     display: flex; align-items: center;
     gap: 0.2rem;
@@ -212,26 +216,74 @@ nav.scrolled .nav-logo .logo-img { height: 56px; }
     margin-left: 0.3rem;
   }
 }
-@media (max-width: 560px) {
-  nav .nav-container { padding: 0 0.8rem; }
-  .nav-logo .logo-img { height: 38px; }
-  nav.scrolled .nav-logo .logo-img { height: 32px; }
-  .nav-links { gap: 0; }
+
+/* ======= NEW: Two-row layout on phones ======= */
+@media (max-width: 700px) {
+  nav {
+    padding: 0.7rem 0;
+  }
+  nav.scrolled {
+    padding: 0.5rem 0;
+  }
+  nav .nav-container {
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0 1rem;
+  }
+  .nav-logo {
+    margin: 0 auto;
+  }
+  .nav-logo .logo-img {
+    height: 58px !important;
+  }
+  nav.scrolled .nav-logo .logo-img {
+    height: 46px !important;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .nav-links li { flex: 1; display: flex; justify-content: center; }
+  .nav-links li:last-child { flex: 0 0 auto; margin-left: 0.3rem; }
   .nav-links a.nav-icon-link {
-    width: 34px; height: 34px;
+    width: 42px; height: 42px;
   }
   .nav-links a.nav-icon-link svg {
-    width: 17px; height: 17px;
+    width: 20px; height: 20px;
   }
+  /* Hide tooltips on touch devices - they trigger on tap not helpful */
+  .nav-links a.nav-icon-link::before,
+  .nav-links a.nav-icon-link::after {
+    display: none;
+  }
+  /* Shorter button text */
+  .nav-cta .cta-full { display: none; }
+  .nav-cta .cta-short { display: inline; }
   .nav-cta {
-    padding: 0.45rem 0.7rem;
-    font-size: 0.72rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
   }
-}
-@media (max-width: 420px) {
-  .nav-cta span.cta-full { display: none; }
   .nav-cta::after {
     content: '→';
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 420px) {
+  nav .nav-container { padding: 0 0.8rem; }
+  .nav-logo .logo-img { height: 50px !important; }
+  .nav-links a.nav-icon-link {
+    width: 38px; height: 38px;
+  }
+  .nav-cta {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.78rem;
   }
 }
 
@@ -557,6 +609,21 @@ section { padding: 6rem 3rem; }
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about-values { grid-template-columns: 1fr; }
+  .about-image {
+    aspect-ratio: auto;
+    min-height: auto;
+    padding: 2rem 1rem 2.5rem;
+  }
+  .about-image-inner {
+    padding: 1.5rem 1rem;
+  }
+  .about-image-inner blockquote {
+    font-size: 1.2rem;
+    line-height: 1.55;
+  }
+  .about-image-inner .big-quote {
+    font-size: 4rem;
+  }
 }
 
 /* ========== SERVICES ========== */
@@ -732,6 +799,8 @@ section { padding: 6rem 3rem; }
 }
 .testimonial-avatar {
   width: 42px; height: 42px;
+  min-width: 42px; min-height: 42px;
+  flex-shrink: 0;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 0.9rem; color: white;
@@ -1034,9 +1103,36 @@ section { padding: 6rem 3rem; }
   transform: translateY(-1px);
 }
 
+.mobile-contact-btn { display: none; }
+
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
+  .contact-form { display: none; }
+  .mobile-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.1rem 1.5rem;
+    margin-top: 2rem;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(249,161,31,0.35);
+  }
+  .mobile-contact-btn:hover,
+  .mobile-contact-btn:active {
+    background: #e8920e;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 25px rgba(249,161,31,0.4);
+  }
 }
 
 /* ========== FOOTER ========== */
@@ -1225,7 +1321,7 @@ footer {
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </a></li>
       <li><div class="nav-divider"></div></li>
-      <li><a href="#booking" class="nav-cta">Gespräch buchen</a></li>
+      <li><a href="#booking" class="nav-cta"><span class="cta-full">Gespräch buchen</span><span class="cta-short">Buchen</span></a></li>
     </ul>
     <button class="menu-toggle" id="menuToggle" aria-label="Menü">
       <span></span><span></span><span></span>
@@ -1674,6 +1770,9 @@ footer {
             <div class="contact-detail-label">LinkedIn</div>
           </div>
         </div>
+        <button class="mobile-contact-btn" onclick="openModal('contact')">
+          Jetzt unverbindlich kontaktieren →
+        </button>
       </div>
       <div class="contact-form reveal">
         <div class="form-row">
@@ -1899,6 +1998,39 @@ function openModal(type) {
         <textarea placeholder="Kurz beschreiben..." id="mChallenge" style="height:80px"></textarea>
       </div>
       <button class="form-submit" onclick="submitModal()">Gespräch buchen →</button>
+    `;
+  } else if (type === 'contact') {
+    content.innerHTML = `
+      <h2>Kontakt aufnehmen</h2>
+      <p class="modal-sub">Wir melden uns innert 24 Stunden bei Ihnen. Unverbindlich und kostenlos.</p>
+      <div class="form-group">
+        <label>Vorname *</label>
+        <input type="text" placeholder="Ihr Vorname" id="mName">
+      </div>
+      <div class="form-group">
+        <label>E-Mail *</label>
+        <input type="email" placeholder="ihre@email.ch" id="mEmail">
+      </div>
+      <div class="form-group">
+        <label>Unternehmen</label>
+        <input type="text" placeholder="Firmenname" id="mCompany">
+      </div>
+      <div class="form-group">
+        <label>Interesse an</label>
+        <select id="mInterest">
+          <option value="">Bitte wählen</option>
+          <option>Prozessoptimierung</option>
+          <option>Coaching & Schulungen</option>
+          <option>Strategieberatung</option>
+          <option>Kostenloses Kennenlerngespräch</option>
+          <option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nachricht</label>
+        <textarea placeholder="Erzählen Sie uns von Ihren Herausforderungen..." id="mMsg" style="height:90px"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitModal()">Nachricht senden →</button>
     `;
   } else {
     content.innerHTML = `
